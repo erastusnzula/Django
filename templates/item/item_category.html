@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head_title %}{{category}}{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid mt-2">
+    <div class="jumbotron">
+        <small>
+            <center><h1>Category: {{category}}</h1></center>
+        </small>
+        <hr>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for item in items %}
+            {% include 'item/parts/item_list.html' %}
+            {% empty %}
+            <p class="lead">There are no items on sale.</p>
+            {% endfor %}
+        </div>
+        {% include 'snippets/pagination.html' %}
+    </div>
+</div>
+
+{% endblock content %}

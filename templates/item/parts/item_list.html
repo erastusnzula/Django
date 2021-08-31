@@ -1,0 +1,25 @@
+{% load humanize %}
+<div class="col">
+                <div class="card h-100">
+                    <img src="{{item.image.url}}" class="card-img-top" alt="..."style="">
+                    <div class="card-body">
+                        <h5 class="card-title">{{item.title}}</h5>
+                        <p>Added: {{item.added_on|naturaltime}}</p>
+                        <p>Categories: &nbsp;
+                            {% for category in item.categories.all %}
+                            <a href="{% url 'item:item-category' category.name %}">{{category.name}}</a>&nbsp;
+                            {%endfor %}
+                            {% if item.discount_price %}
+                            <h6 class="card-title">Price: Ksh.<del>{{item.price}}</del> {{item.discount_price}}</h6>
+                            {% else %}
+                        </p>
+                        <h6 class="card-title">Price: {{item.price}}</h6>
+                        {% endif %}
+                        <p class="card-text">{{item.description}}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{% url 'item:item-detail' item.id %}"> <small class=" btn btn-sm text-muted">View
+                            Item</small></a>
+                    </div>
+                </div>
+            </div>

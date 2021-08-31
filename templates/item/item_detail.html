@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block head_title %}{{item.title}}{% endblock %}
+{% block content %}
+
+
+<div class="col-md-8 offset-md-2 mt-2">
+    <div class="jumbotron">
+        <h1>{{item.title}}</h1>
+        <hr>
+        <small>
+            {{item.added_on|naturaltime}} | &nbsp;Categories: &nbsp;
+            {% for category in item.categories.all %}
+            <a href="{% url 'item:item-category' category.name %}">{{category.name}}</a>&nbsp;
+            {%endfor %}
+        </small>
+        <div class="row">
+            <div class="col-md-8">
+                <img src="{{item.image.url}}" class="card-img-top" alt="...">
+            </div>
+            <div class="col-md-4">
+                <h5 class="">Name: {{item.title}}</h5>
+                <hr>
+                <p>Added: {{item.added_on|naturaltime}}</p>
+                <hr>
+                {% if item.discount_price %}
+                <p class="card-title">Price: Ksh.
+                    <del>{{item.price}}</del>
+                    {{item.discount_price}}
+                </p>
+                {% else %}
+                <p class="card-title">Price: {{item.price}}</p>
+                {% endif %}
+
+                <hr>
+                <p class="">Description: {{item.description|linebreaks}}</p>
+                <hr>
+                <a href="{% url 'item:add-to-cart' item.id %}"> <small class=" btn btn-sm btn-primary">Add to
+                    Cart</small></a>
+                <a href="{% url 'item:remove-from-cart' item.id %}"> <small class=" btn btn-sm btn-danger">Remove from
+                    Cart</small></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

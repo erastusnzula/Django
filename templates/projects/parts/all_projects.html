@@ -1,0 +1,14 @@
+{% load humanize %}
+<div class="col">
+    <div class="card h-100">
+        <img src="{{project.image.url}}" class="card-img-top" alt="..." style="">
+        <div class="card-body">
+            <h5 class="card-title">Name: {{project.title}}</h5>
+            <p class="card-text">Description: {{project.description | slice:':80'}}...</p>
+        </div>
+        <div class="card-footer text-center">
+            <a href="{% url 'projects:project_detail' project.id %}"> <small class=" btn btn-sm text-muted">View
+                project</small></a>
+        </div>
+    </div>
+</div>

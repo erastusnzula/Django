@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load bootstrap4 %}
+
+{% block head_title %}{{post.title}}{% endblock %}
+{% block content %}
+
+
+<div class="col-md-8 offset-md-2 mt-2" xmlns="http://www.w3.org/1999/html">
+    <div class="jumbotron">
+        <h1>{{post.title}}</h1>
+        <hr>
+        <small>
+            {{post.created_on|naturaltime}} | &nbsp;Categories: &nbsp;
+            {% for category in post.categories.all %}
+            <a href="{% url 'blog:blog-category' category.name %}">{{category.name}}</a>&nbsp;
+            {%endfor %}
+        </small>
+        <p>{{post.body | linebreaks }}</p>
+        <h3>Leave a comment</h3>
+        <form action="." method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {% bootstrap_form form %}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <h3>Comments:</h3>
+        {% for comment in comments %}
+        <small>
+            {{comment.created_on|naturaltime}} <b>{{comment.owner|title}}</b>&nbsp;commented on&nbsp;
+            <a href="{% url 'blog:blog-detail' post.id %}">{{post.title}}</a>
+
+            {% if user.is_authenticated %}
+            {% if comment.edited %}
+            <br>
+            <span class="badge badge-primary">Edited</span> - {{comment.last_modified|naturaltime}}
+            <a href="{% url 'blog:edit-comment' comment.id %}">Edit again</a>
+            {% else %}
+            <br>
+            <a href="{% url 'blog:edit-comment' comment.id %}">Edit comment</a>
+
+
+            {% endif %}
+            {% endif %}
+
+        </small>
+        <p>{{comment.body}}</p>
+        <hr>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

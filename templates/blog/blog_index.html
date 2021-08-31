@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block head_title %}Blogs{% endblock %}
+{% block content %}
+
+<div class="col-md-8 offset-md-2 mt-2">
+    <div class="jumbotron">
+        <h1>EMU</h1>
+        <hr>
+        {% for post in posts %}
+        {% include 'blog/parts/all_post.html' %}
+        {% empty %}
+            <p class="lead">There are no posts added.</p>
+        {% endfor %}
+    </div>
+    {% include 'snippets/blog_pagination.html' %}
+</div>
+
+{% endblock %}

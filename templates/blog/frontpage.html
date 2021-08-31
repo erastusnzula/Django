@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid mt-2 ">
+    <div class="jumbotron">
+
+
+        <h3 class="text-primary text-center">Latest Projects</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+            {% for project in projects %}
+            {% include 'projects/parts/all_projects.html' %}
+            {% empty %}
+            <p class="lead">There are no projects.</p>
+            {% endfor %}
+        </div>
+        <br>
+        <div class="pb-2 mb-2 border-bottom text-center">
+            <a class="btn btn-sm btn-primary " href="{% url 'projects:projects' %}"
+               role="button">View all Projects &raquo;</a>
+        </div>
+
+        <h3 class="text-primary text-center">Latest Blogs</h3>
+            {% for post in posts %}
+            {% include 'blog/parts/all_post.html' %}
+            {% empty %}
+            <p class="lead">There are no post.</p>
+            {% endfor %}
+        <hr>
+        <div class="text-center">
+            <a class="btn btn-sm btn-primary " href="{% url 'blog:blog' %}"
+               role="button">View all Blogs &raquo;</a>
+        </div>
+        <h3 class="text-primary text-center">Latest Items On Sale</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+            {% for item in items %}
+            {% include 'item/parts/item_list.html' %}
+            {% empty %}
+            <p class="lead">There are no items on sale.</p>
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="text-center">
+            <a class="btn btn-sm btn-primary " href="{% url 'item:all-items' %}"
+               role="button">View all Items on sale &raquo;</a>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

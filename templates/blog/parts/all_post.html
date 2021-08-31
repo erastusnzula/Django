@@ -1,0 +1,9 @@
+{% load humanize %}
+<h2><a href="{% url 'blog:blog-detail' post.id %}">{{post.title}}</a></h2>
+<small>
+    {{post.created_on|naturaltime}} | &nbsp;Categories: &nbsp;
+    {% for category in post.categories.all %}
+    <a href="{% url 'blog:blog-category' category.name %}">{{category.name}}</a>&nbsp;
+    {%endfor %}
+</small>
+<p>{{post.body | slice:':400'}}...</p>

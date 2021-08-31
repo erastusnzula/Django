@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block head_title %}{{project.title}}{% endblock %}
+{% block content %}
+
+
+<div class="col-md-8 offset-md-2 mt-2">
+    <div class="jumbotron">
+        <h1>{{project.title}}</h1>
+        <hr>
+        <small>
+            {{project.created_on|naturaltime}} | &nbsp;Category: &nbsp;
+            {% for category in project.categories.all %}
+            <a href="{% url 'projects:project-category' category.name %}">{{category.name}}</a>&nbsp;
+            {%endfor %}
+        </small>
+        <div class="row">
+        <div class="col-md-8">
+            <img src="{{project.image.url}}" class="card-img-top" alt="...">
+        </div>
+        <div class="col-md-4">
+            <h5 class="">Name: {{project.title}}</h5>
+
+            <hr>
+             <p>Language: {{project.language}} - {{project.framework}}</p>
+            <hr>
+
+            <p class="">Description: {{project.description|linebreaks}}</p>
+            <hr>
+            <a href={{project.github_link}} target="_blank" > <small class=" btn btn-sm btn-primary">View Code in  GitHub</small></a>
+            <a href="{% url 'projects:projects' %}"> <small class=" btn btn-sm btn-danger float-right">Back to Projects</small></a>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
